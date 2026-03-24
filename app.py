@@ -626,11 +626,38 @@ with col_nv:
 with col_sal:
     with st.container(border=True):
         st.markdown(chart_title("Faixa salarial"), unsafe_allow_html=True)
-        s1, s2, s3, s4 = st.columns(4)
-        s1.metric("Mínimo",  f"R${df['Salario'].min():,.0f}")
-        s2.metric("Máximo",  f"R${df['Salario'].max():,.0f}")
-        s3.metric("Mediana", f"R${mediana_sal:,.0f}")
-        s4.metric("Média",   f"R${media_sal:,.0f}")
+        st.markdown(f"""
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px;">
+  <div style="background:rgba(255,255,255,.02);border:1px solid {C['border']};
+  border-radius:8px;padding:10px 12px;">
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.1em;
+    color:{C['text3']};margin-bottom:4px;">Mínimo</div>
+    <div style="font-size:15px;font-weight:700;color:{C['text']};
+    font-family:'Syne',sans-serif;">R${df['Salario'].min():,.0f}</div>
+  </div>
+  <div style="background:rgba(255,255,255,.02);border:1px solid {C['border']};
+  border-radius:8px;padding:10px 12px;">
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.1em;
+    color:{C['text3']};margin-bottom:4px;">Máximo</div>
+    <div style="font-size:15px;font-weight:700;color:{C['text']};
+    font-family:'Syne',sans-serif;">R${df['Salario'].max():,.0f}</div>
+  </div>
+  <div style="background:rgba(255,255,255,.02);border:1px solid {C['border']};
+  border-radius:8px;padding:10px 12px;">
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.1em;
+    color:{C['text3']};margin-bottom:4px;">Mediana</div>
+    <div style="font-size:15px;font-weight:700;color:{C['teal']};
+    font-family:'Syne',sans-serif;">R${mediana_sal:,.0f}</div>
+  </div>
+  <div style="background:rgba(255,255,255,.02);border:1px solid {C['border']};
+  border-radius:8px;padding:10px 12px;">
+    <div style="font-size:9px;text-transform:uppercase;letter-spacing:.1em;
+    color:{C['text3']};margin-bottom:4px;">Média</div>
+    <div style="font-size:15px;font-weight:700;color:{C['blue']};
+    font-family:'Syne',sans-serif;">R${media_sal:,.0f}</div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
         fig_hist = px.histogram(df, x="Salario", nbins=20,
@@ -731,56 +758,61 @@ with col_tab:
 
 # ── FOOTER ────────────────────────────────────────────────────
 st.markdown(f"""
-<div style="margin-top:32px;border:1px solid {C['border']};border-radius:14px;
-overflow:hidden;">
+<div style="margin-top:32px;border:1px solid {C['border']};border-radius:14px;overflow:hidden;">
 
-  <!-- Linha superior: dados do projeto -->
+  <!-- Linha superior: metadados -->
   <div style="display:flex;justify-content:space-between;align-items:center;
-  padding:14px 24px;background:{C['bg3']};">
-    <div style="font-size:9px;color:{C['text3']};letter-spacing:.08em;">
-      ◈ PEOPLE ANALYTICS
-    </div>
-    <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
+  padding:12px 24px;background:{C['bg3']};">
+    <div style="font-size:9px;color:{C['text2']};letter-spacing:.08em;">◈ PEOPLE ANALYTICS</div>
+    <div style="font-size:9px;color:{C['text2']};letter-spacing:.06em;">
       Base_dados_rh.xlsx &nbsp;·&nbsp; {n} colaboradores &nbsp;·&nbsp; Março 2026
     </div>
-    <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
-      Streamlit &nbsp;+&nbsp; Plotly &nbsp;·&nbsp; v2.1
-    </div>
+    <div style="font-size:9px;color:{C['text2']};letter-spacing:.06em;">Streamlit + Plotly · v2.1</div>
   </div>
 
-  <!-- Divisor -->
-  <div style="height:1px;background:linear-gradient(90deg,
-    transparent,{C['blue']}44,{C['teal']}44,transparent);"></div>
+  <!-- Divisor gradiente -->
+  <div style="height:1px;background:linear-gradient(90deg,transparent,{C['blue']},{C['teal']},transparent);"></div>
 
-  <!-- Linha inferior: assinatura -->
+  <!-- Assinatura do autor -->
   <div style="display:flex;justify-content:space-between;align-items:center;
-  padding:14px 24px;background:{C['bg4']};">
-    <div>
-      <div style="font-size:11px;font-weight:600;color:{C['text']};
-      font-family:'Syne',sans-serif;letter-spacing:.02em;">
-        🛠️ &nbsp;Cláudio Ferreira Neves
-      </div>
-      <div style="font-size:9px;color:{C['text2']};margin-top:3px;letter-spacing:.03em;">
-        Especialista em Business Intelligence, Big Data &amp; Analytics · Ciência de Dados
+  padding:18px 28px;background:{C['bg4']};">
+
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:36px;height:36px;border-radius:50%;
+      background:linear-gradient(135deg,{C['blue']},{C['teal']});
+      display:flex;align-items:center;justify-content:center;
+      font-size:16px;flex-shrink:0;">🛠️</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:{C['text']};
+        font-family:'Syne',sans-serif;letter-spacing:.01em;line-height:1.2;">
+          Cláudio Ferreira Neves
+        </div>
+        <div style="font-size:10px;color:{C['text2']};margin-top:3px;">
+          Especialista em Business Intelligence, Big Data &amp; Analytics · Ciência de Dados
+        </div>
       </div>
     </div>
-    <div style="text-align:center;">
-      <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
-        Especialista em Ciência de Dados e Inteligência Artificial
-      </div>
-    </div>
-    <div style="text-align:right;">
-      <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
+
+    <div style="text-align:center;padding:0 20px;">
+      <div style="font-size:10px;color:{C['text2']};line-height:1.8;">
+        Especialista em Ciência de Dados e Inteligência Artificial<br>
         MBA em Gestão de Projetos
       </div>
-      <div style="margin-top:4px;">
-        <a href="https://github.com/cfneves" target="_blank"
-        style="font-size:9px;color:{C['blue']};text-decoration:none;
-        letter-spacing:.04em;">github.com/cfneves</a>
-      </div>
     </div>
-  </div>
 
+    <div style="text-align:right;">
+      <a href="https://github.com/cfneves" target="_blank"
+      style="display:inline-flex;align-items:center;gap:7px;
+      background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);
+      border-radius:20px;padding:7px 14px;text-decoration:none;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="{C['blue']}">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span style="font-size:10px;color:{C['blue']};font-weight:500;">github.com/cfneves</span>
+      </a>
+    </div>
+
+  </div>
 </div>
 """, unsafe_allow_html=True)
 """, unsafe_allow_html=True)
