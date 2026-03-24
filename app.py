@@ -731,18 +731,56 @@ with col_tab:
 
 # ── FOOTER ────────────────────────────────────────────────────
 st.markdown(f"""
-<div style="display:flex;justify-content:space-between;align-items:center;
-margin-top:32px;padding:18px 24px;
-background:{C['bg3']};border:1px solid {C['border']};
-border-radius:12px;">
-  <div style="font-size:9px;color:{C['text3']};letter-spacing:.08em;">
-    ◈ PEOPLE ANALYTICS
+<div style="margin-top:32px;border:1px solid {C['border']};border-radius:14px;
+overflow:hidden;">
+
+  <!-- Linha superior: dados do projeto -->
+  <div style="display:flex;justify-content:space-between;align-items:center;
+  padding:14px 24px;background:{C['bg3']};">
+    <div style="font-size:9px;color:{C['text3']};letter-spacing:.08em;">
+      ◈ PEOPLE ANALYTICS
+    </div>
+    <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
+      Base_dados_rh.xlsx &nbsp;·&nbsp; {n} colaboradores &nbsp;·&nbsp; Março 2026
+    </div>
+    <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
+      Streamlit &nbsp;+&nbsp; Plotly &nbsp;·&nbsp; v2.1
+    </div>
   </div>
-  <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
-    Base_dados_rh.xlsx &nbsp;·&nbsp; {n} colaboradores &nbsp;·&nbsp; Março 2026
+
+  <!-- Divisor -->
+  <div style="height:1px;background:linear-gradient(90deg,
+    transparent,{C['blue']}44,{C['teal']}44,transparent);"></div>
+
+  <!-- Linha inferior: assinatura -->
+  <div style="display:flex;justify-content:space-between;align-items:center;
+  padding:14px 24px;background:{C['bg4']};">
+    <div>
+      <div style="font-size:11px;font-weight:600;color:{C['text']};
+      font-family:'Syne',sans-serif;letter-spacing:.02em;">
+        🛠️ &nbsp;Cláudio Ferreira Neves
+      </div>
+      <div style="font-size:9px;color:{C['text2']};margin-top:3px;letter-spacing:.03em;">
+        Especialista em Business Intelligence, Big Data &amp; Analytics · Ciência de Dados
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
+        Especialista em Ciência de Dados e Inteligência Artificial
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
+        MBA em Gestão de Projetos
+      </div>
+      <div style="margin-top:4px;">
+        <a href="https://github.com/cfneves" target="_blank"
+        style="font-size:9px;color:{C['blue']};text-decoration:none;
+        letter-spacing:.04em;">github.com/cfneves</a>
+      </div>
+    </div>
   </div>
-  <div style="font-size:9px;color:{C['text3']};letter-spacing:.06em;">
-    Streamlit &nbsp;+&nbsp; Plotly &nbsp;·&nbsp; v2.0
-  </div>
+
 </div>
+""", unsafe_allow_html=True)
 """, unsafe_allow_html=True)

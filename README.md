@@ -155,4 +155,15 @@ Histórico detalhado em [`CHANGELOG.md`](CHANGELOG.md).
 
 ---
 
+## Autor
+
+**🛠️ Cláudio Ferreira Neves**
+Especialista em Business Intelligence, Big Data & Analytics — Ciência de Dados
+Especialista em Ciência de Dados e Inteligência Artificial
+MBA em Gestão de Projetos
+
+[![GitHub](https://img.shields.io/badge/GitHub-cfneves-181717?logo=github)](https://github.com/cfneves)
+
+---
+
 *People Analytics · v2.1 · Março 2026*
