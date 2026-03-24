@@ -1,5 +1,11 @@
 # People Analytics — Mapa de Colaboradores
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://people-analytics-cfn.streamlit.app/)
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-5.18+-3F4F75?logo=plotly&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.0+-150458?logo=pandas&logoColor=white)
+![License](https://img.shields.io/badge/Licença-MIT-green)
+
 Dashboard de RH feito com Streamlit e Plotly. Mostra quem são os 164 colaboradores, onde estão, quanto ganham e como performam — tudo filtrável em tempo real.
 
 ---
@@ -89,6 +95,54 @@ A pasta `/docs` tem quatro arquivos:
 
 ---
 
+## Estrutura do projeto
+
+```
+people-analytics/
+│
+├── app.py                        # Dashboard principal (Streamlit)
+├── dados_rh.parquet              # Cache do dataset (5× mais rápido que Excel)
+├── Base_dados_rh.xlsx            # Fonte original dos dados
+├── requirements.txt              # Dependências fixadas
+│
+├── .streamlit/
+│   └── config.toml               # Tema dark + configurações do servidor
+│
+├── docs/                         # Documentação técnica
+│   ├── dicionario_dados.md       # Schema, tipos, qualidade dos dados
+│   ├── diagnostico_tecnico.md    # Bugs, outliers, análise de código
+│   ├── plano_acao.md             # Roadmap priorizado
+│   └── guia_contribuidores.md    # Como rodar, contribuir e estender
+│
+├── .github/
+│   └── ISSUE_TEMPLATE/           # Templates para bugs e sugestões
+│
+├── CHANGELOG.md                  # Histórico de versões
+└── README.md
+```
+
+---
+
+## Próximos passos
+
+O roadmap completo está em [`docs/plano_acao.md`](docs/plano_acao.md). Em resumo:
+
+**Curto prazo**
+- Corrigir typo `"Gerente Fianceiro"` na base Excel
+- Adicionar heatmap de correlações (satisfação × performance × salário)
+- Aviso visual quando filtros retornam menos de 5 registros
+
+**Médio prazo**
+- Análise de equidade salarial por gênero dentro do mesmo cargo
+- Modularizar `app.py` em seções separadas
+
+**Longo prazo**
+- Modelo de predição de risco de turnover
+- Segmentação de colaboradores com K-Means
+- Autenticação para uso com dados reais
+
+---
+
 ## Versões
 
 | Versão | O que mudou |
@@ -96,6 +150,8 @@ A pasta `/docs` tem quatro arquivos:
 | v1.0 | Dashboard inicial — Streamlit + Plotly |
 | v2.0 | Redesign completo — cards, CSS premium, layout reestruturado |
 | v2.1 | Correção do parser de salário BR, data dinâmica, documentação `/docs` |
+
+Histórico detalhado em [`CHANGELOG.md`](CHANGELOG.md).
 
 ---
 
