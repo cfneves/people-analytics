@@ -1,0 +1,180 @@
+================================================================================
+PROMPT DE CONTEXTO — PEOPLE ANALYTICS — MAPA DE COLABORADORES
+Carregue este arquivo em qualquer sessão para retomar o projeto com contexto completo.
+================================================================================
+
+QUEM SOU EU
+-----------
+Sou um analista de dados em transição para cientista de dados.
+Estou fazendo o curso "People Analytics — Mapa de Colaboradores" (aula 02).
+Trabalho com Python, Streamlit e Plotly. Uso Windows 11.
+Meu GitHub é: cfneves
+
+SOBRE O PROJETO
+---------------
+Nome: People Analytics — Mapa de Colaboradores
+GitHub: https://github.com/cfneves/people-analytics.git
+Deploy (produção): https://people-analytics-cfn.streamlit.app/
+Versão atual: 2.1
+Branch principal: main
+Stack: Python 3.9+ | Streamlit 1.32+ | Plotly 5.18+ | Pandas 2.0+ | PyArrow 14+
+
+O projeto é um dashboard interativo de RH com 164 colaboradores ativos.
+Lê dados de Base_dados_rh.xlsx (fallback) ou dados_rh.parquet (cache principal).
+
+O QUE FOI CONSTRUÍDO NESTA SESSÃO
+-----------------------------------
+
+COMMIT 1 — fix: color_continuous_scale (1d61431)
+  Problema: Plotly >=5.19 rejeitou cores hex 8 dígitos (#RRGGBBAA) no Streamlit Cloud.
+  Erro: ValueError em color_continuous_scale nos gráficos fig_fat, fig_nv, fig_cargo.
+  Correção: substituir "#fbbf2444" por "rgba(251,191,36,0.27)" (e equivalentes).
+
+COMMIT 2 — docs: documentação técnica completa (5f1b984)
+  README.md reescrito com schema completo, perfil estatístico e instruções de deploy.
+
+COMMIT 3 — feat: redesign premium UI/UX v2.0 (8683dce)
+  Reescrita completa do app.py para visual premium. Mudanças:
+  - Design system: dicionário C com todas as cores e PLOTLY_BASE
+  - KPI cards: HTML puro com border-top colorido por categoria (não st.metric)
+  - Section headers: HTML com pill vertical colorido + linha separadora
+  - Cards de seção: st.container(border=True) com CSS override
+  - Progress bars: HTML customizado com cores semânticas (não st.progress nativo)
+  - Sidebar: branding ◈ PeopleAnalytics + pulse dot verde
+  - Header: gradient text + badge de status animado
+  - Fontes: Inter (corpo) + Syne (display/números)
+  - Plotly: bargap=0.3, marker_line_width=0, hover estilizado
+  - Layout seção 1: [1.5, 0.85, 1.7] (era [2.5, 1, 1, 1.6])
+
+COMMIT 4 — feat: auditoria técnica completa v2.1 (4c5cef5)
+  Bugs corrigidos:
+  - _parse_sal(): "6.120,32" (formato BR com milhar) causava Salario=null
+    em 3 registros (AC148, AC149, AC122). Fix: remove '.' antes de converter ','.
+  - date(2026,3,23) hardcoded → date.today()
+  Pasta /docs criada com 4 arquivos:
+  - docs/dicionario_dados.md
+  - docs/diagnostico_tecnico.md
+  - docs/plano_acao.md
+  - docs/guia_contribuidores.md
+  README reescrito via skill /humanizer (linguagem natural, sem padrões IA)
+
+COMMIT 5 — docs: repositório profissional para portfólio (2304757)
+  Via API GitHub (python urllib + token do credential store):
+  - Descrição: "Dashboard de People Analytics com Streamlit e Plotly..."
+  - Website: https://people-analytics-cfn.streamlit.app/
+  - 10 Topics: people-analytics, data-science, streamlit, plotly, pandas,
+    hr-analytics, dashboard, python, data-visualization, business-intelligence
+  Arquivos criados:
+  - CHANGELOG.md (histórico v1.0 → v2.1)
+  - .github/ISSUE_TEMPLATE/bug_report.md
+  - .github/ISSUE_TEMPLATE/feature_request.md
+  README atualizado: badges (Streamlit, Python, Plotly, Pandas, MIT),
+    estrutura do projeto, seção "Próximos passos"
+
+ESTRUTURA ATUAL DO REPOSITÓRIO
+--------------------------------
+people-analytics/
+├── app.py                          # Dashboard principal (~530 linhas)
+├── dados_rh.parquet                # Cache do dataset
+├── Base_dados_rh.xlsx              # Fonte original (164 colaboradores)
+├── requirements.txt                # streamlit, pandas, plotly, openpyxl, pyarrow
+├── .streamlit/config.toml          # Tema dark (#060810)
+├── docs/
+│   ├── dicionario_dados.md
+│   ├── diagnostico_tecnico.md
+│   ├── plano_acao.md
+│   └── guia_contribuidores.md
+├── .github/ISSUE_TEMPLATE/
+│   ├── bug_report.md
+│   └── feature_request.md
+├── CHANGELOG.md
+├── README.md
+├── CONTEXTO_SESSAO.txt             # este arquivo
+└── .gitignore
+
+DATASET — PERFIL TÉCNICO
+--------------------------
+164 linhas × 18 colunas
+3 nulos em Salario (corrigidos automaticamente por _parse_sal())
+0 duplicatas
+
+Colunas originais: Colaborador, ID, Salario-Cargo, Data de Nascimento,
+  Sexo, Data de Contratação, Status, Departamento, Recrutamento,
+  Performance, Satisfação
+
+Colunas derivadas (load_data): Salario, Cargo, Idade, Faixa Etaria,
+  Tempo de Casa, Ano Contratação, Nivel
+
+Categorias:
+  Departamento: Produção(92) Financeiro(41) Comercial(24) Administrativo(7)
+  Performance:  Regular(130) Excelente(23) Ruim(11)
+  Recrutamento: Anúncios/Sites(68) LinkedIn(35) Indicação(34) BDI(27)
+  Sexo:         M(111) F(53)
+  Nivel:        Auxiliar(73) Assistente(49) Analista(21) Gerência(13) Diretoria(5)
+
+Correlações: Satisfação×Performance=0.23 (fraco), Salário×Performance=0.18 (fraco)
+Outliers salariais: 18 registros (Diretores/Gerentes >R$10.498) — legítimos
+Typo pendente: "Gerente Fianceiro" em vez de "Financeiro" — 5 registros na base Excel
+
+DESIGN SYSTEM (app.py)
+-----------------------
+Dicionário C:
+  bg=#060810  bg3=#0d1220  bg4=#141c2e  border=rgba(255,255,255,0.06)
+  blue=#4f8ef7   teal=#2dd4bf   pink=#f472b6  amber=#fbbf24
+  green=#4ade80  red=#f87171    purple=#a78bfa  text=#e2e8f0
+  text2=#64748b  text3=#2d3748
+
+PLOTLY_BASE: paper/plot_bgcolor transparente, font Inter 11px,
+  margin l=4 r=4 t=8 b=4, hoverlabel com bg3
+
+Helpers HTML: kpi_card(), section_header(), chart_title(), progress_bar()
+
+CSS importante:
+  [data-testid="stVerticalBlockBorderWrapper"] → cards escuros
+  [data-testid="metric-container"] → métricas nativas estilizadas
+  Fonte: @import Inter + Syne do Google Fonts
+
+REGRAS DESTA SESSÃO (IMPORTANTES)
+-----------------------------------
+1. NÃO incluir "Co-Authored-By: Claude" nos commits git
+2. Commits em português, descritivos
+3. Sempre fazer push para https://github.com/cfneves/people-analytics.git (main)
+4. Não quebrar o deploy do Streamlit Cloud — testar compatibilidade de pacotes
+5. Manter o design system (dicionário C) ao adicionar novos elementos visuais
+6. Arquivos de dados ficam na raiz (app.py lê de "./dados_rh.parquet")
+
+SKILLS UTILIZADAS NESTA SESSÃO
+--------------------------------
+- /data-analyst    — análise exploratória, perfil do dataset, correlações
+- /humanizer       — reescrita do README para linguagem natural e humana
+
+PRÓXIMOS PASSOS PENDENTES (docs/plano_acao.md)
+------------------------------------------------
+Quick wins:
+  [ ] Corrigir typo "Gerente Fianceiro" → "Gerente Financeiro" na Base_dados_rh.xlsx
+  [ ] Aviso visual quando filtros retornam n < 5 colaboradores
+  [ ] Adicionar heatmap de correlações (satisfação × performance × salário)
+
+Médio prazo:
+  [ ] Análise de equidade salarial por gênero (mesmo cargo/nível)
+  [ ] Modularizar app.py em seções separadas (docs/plano_acao.md ME-1)
+  [ ] Logging com loguru para erros de parse
+
+Longo prazo:
+  [ ] Modelo de predição de turnover (Random Forest)
+  [ ] Segmentação de colaboradores (K-Means)
+  [ ] Autenticação para uso com dados reais
+
+COMO RETOMAR O PROJETO
+-----------------------
+1. Clone: git clone https://github.com/cfneves/people-analytics.git
+2. Instale: pip install -r requirements.txt
+3. Rode: streamlit run app.py
+4. Para deploy: push para main → Streamlit Cloud redesploya automaticamente
+
+Ou simplesmente leia este arquivo e diga:
+"Retome o projeto People Analytics com base no CONTEXTO_SESSAO.txt"
+
+================================================================================
+FIM DO CONTEXTO — People Analytics v2.1 — Março 2026
+================================================================================
