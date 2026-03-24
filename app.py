@@ -248,7 +248,7 @@ with col_fat:
         fat_count, x="Count", y="Faixa", orientation="h",
         text=fat_count["Count"],
         color="Count",
-        color_continuous_scale=[[0, COLORS["amber"]+"44"], [1, COLORS["amber"]]],
+        color_continuous_scale=[[0, "rgba(251,191,36,0.27)"], [1, COLORS["amber"]]],
         height=180,
     )
     fig_fat.update_layout(**PLOTLY_LAYOUT, showlegend=False, coloraxis_showscale=False)
@@ -362,7 +362,7 @@ with col_nivel:
     fig_nv = px.bar(nv_count, x="Count", y="Nivel", orientation="h",
         text=nv_count.apply(lambda r: f"{r['Count']} · {r['Pct']:.0f}%", axis=1),
         color="Count",
-        color_continuous_scale=[[0, COLORS["purple"]+"44"], [1, COLORS["purple"]]],
+        color_continuous_scale=[[0, "rgba(192,132,252,0.27)"], [1, COLORS["purple"]]],
         height=260,
     )
     fig_nv.update_layout(**PLOTLY_LAYOUT, showlegend=False, coloraxis_showscale=False)
@@ -397,7 +397,7 @@ with col_cargos:
     fig_cargo = px.bar(top_cargos, x="Count", y="Cargo", orientation="h",
         text="Count",
         color="Count",
-        color_continuous_scale=[[0, COLORS["amber"]+"44"], [1, COLORS["amber"]]],
+        color_continuous_scale=[[0, "rgba(251,191,36,0.27)"], [1, COLORS["amber"]]],
         height=320,
     )
     fig_cargo.update_layout(**PLOTLY_LAYOUT, showlegend=False, coloraxis_showscale=False)
