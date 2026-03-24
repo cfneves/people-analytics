@@ -209,24 +209,38 @@ def progress_bar(label, val, pct, color):
 </div>"""
 
 # ── DADOS ──────────────────────────────────────────────────────
+def _parse_sal(x):
+    """
+    Extrai salário e cargo do campo composto 'Salario-Cargo'.
+    Suporta formato numérico brasileiro com separador de milhar (ponto)
+    e decimal (vírgula): ex. '6.120,32-Analista Financeiro Junior'
+    """
+    try:
+        parts = str(x).rsplit('-', 1)
+        # Remove separador de milhar (.) antes de converter vírgula em ponto
+        sal_str = parts[0].strip().replace('.', '').replace(',', '.')
+        sal = float(sal_str)
+        cargo = parts[1].strip() if len(parts) > 1 else ''
+        return sal, cargo
+    except Exception:
+        return None, ''
+
 @st.cache_data
 def load_data():
+    from datetime import date
     try:
         df = pd.read_parquet("dados_rh.parquet")
+        # Corrige salários nulos causados pelo formato '6.120,32' no Excel
+        if df['Salario'].isnull().any():
+            mask = df['Salario'].isnull()
+            df.loc[mask, ['Salario', 'Cargo']] = pd.DataFrame(
+                df.loc[mask, 'Salario-Cargo'].apply(_parse_sal).tolist(),
+                index=df.index[mask])
     except Exception:
         df = pd.read_excel("Base_dados_rh.xlsx")
-        def parse_sal(x):
-            try:
-                parts = str(x).rsplit('-', 1)
-                sal = float(parts[0].replace(',', '.').replace(' ', ''))
-                cargo = parts[1].strip() if len(parts) > 1 else ''
-                return sal, cargo
-            except Exception:
-                return None, ''
         df[['Salario', 'Cargo']] = pd.DataFrame(
-            df['Salario-Cargo'].apply(parse_sal).tolist(), index=df.index)
-        from datetime import date
-        hoje = date(2026, 3, 23)
+            df['Salario-Cargo'].apply(_parse_sal).tolist(), index=df.index)
+        hoje = date.today()
         df['Idade'] = df['Data de Nascimento'].apply(
             lambda x: (hoje - x.date()).days // 365 if pd.notna(x) else None)
         def faixa(i):
